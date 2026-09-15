@@ -4,7 +4,7 @@
 
 A categorized reading list of public papers on robotic in-context learning (ICL), in-context imitation learning (ICIL), and closely related adaptation methods.
 
-Last checked: **2026-09-15** · **28 papers**. Years refer to the first arXiv submission, which may differ from the conference year; titles follow the linked arXiv record. Entries are ordered by year within each category. This is a curated list, not an exhaustive survey or performance ranking.
+Last checked: **2026-09-15** · **48 papers**. Years refer to the first arXiv submission, which may differ from the conference year; titles follow the linked arXiv record. Entries are ordered by year within each category. This is a curated list, not an exhaustive survey or performance ranking.
 
 **Scope.** Demonstration-conditioned execution with fixed policy weights is distinguished from gradient-based adaptation. Meta-training happens before deployment and does not by itself imply test-time updates. The adaptation/memory section explicitly includes methods that update weights; general RL and multimodal foundations are labeled as related work rather than robot ICIL results. Categories describe the main interface and can overlap: human-video policies may also be VLAs.
 
@@ -18,6 +18,9 @@ Each entry links to its source paper and, where verified, an author project or r
 - [Human-video and cross-embodiment ICL](#human-video)
 - [Test-time adaptation and long-context memory](#adaptation-memory)
 - [Multimodal ICL foundations](#multimodal-foundations)
+
+- [Robotic agents and VLA orchestration](#robotic-agents)
+- [Reference collections](#reference-collections)
 
 <a id="llm-icl"></a>
 
@@ -258,3 +261,188 @@ Provides an open framework and models for autoregressive vision-language learnin
 Introduces a multimodal context format and the MIC dataset to improve understanding of multi-image prompts and multimodal in-context examples.
 
 [Repository](https://github.com/PKUnlp-icler/MIC)
+
+<a id="robotic-agents"></a>
+
+## Robotic agents and VLA orchestration
+
+Related work on agents that plan, call robot tools or policies, monitor execution, and improve skills. Agent-to-VLA orchestration is one subset; agent control can also use analytic primitives or generated programs. These papers are not all demonstration-based ICL. Training-based improvement and fixed-weight execution are distinguished in the descriptions. The two reference collections below provided discovery leads; paper descriptions were checked against primary sources.
+
+### Planning and grounded control
+
+Also see **Code as Policies** in [LLM/VLM-based robotic ICL](#llm-icl).
+
+#### SayCan · 2022
+
+**[Do As I Can, Not As I Say: Grounding Language in Robotic Affordances](https://arxiv.org/abs/2204.01691)**
+
+Combines language-model task relevance with pretrained skill value functions to choose feasible robot skills for long-horizon instructions.
+
+[Project](https://say-can.github.io/) · [Repository](https://github.com/google-research/google-research/tree/master/saycan)
+
+#### Inner Monologue · 2022
+
+**[Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608)**
+
+Feeds success detection, scene descriptions, and human feedback back into an LLM planner for closed-loop robot task execution.
+
+[Project](https://innermonologue.github.io/)
+
+#### VoxPoser · 2023
+
+**[VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models](https://arxiv.org/abs/2307.05973)**
+
+Uses language-model-generated code and visual grounding to compose 3D value maps, which a model-based planner converts into robot trajectories.
+
+[Project](https://voxposer.github.io/) · [Repository](https://github.com/huangwl18/VoxPoser)
+
+#### ReKep · 2024
+
+**[ReKep: Spatio-Temporal Reasoning of Relational Keypoint Constraints for Robotic Manipulation](https://arxiv.org/abs/2409.01652)**
+
+Generates relational 3D-keypoint constraints from instructions and RGB-D observations, then optimizes end-effector motions in a perception–action loop.
+
+[Project](https://rekep-robot.github.io/) · [Repository](https://github.com/huangwl18/ReKep)
+
+### Agent-to-VLA orchestration and robot tool interfaces
+
+#### Hi Robot · 2025
+
+**[Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://arxiv.org/abs/2502.19417)**
+
+Uses a high-level vision-language model to interpret open-ended instructions and situated feedback, with a low-level policy executing the selected steps.
+
+[Project](https://www.pi.website/research/hirobot)
+
+#### Hierarchical VLA agents · 2026
+
+**[What Matters in Orchestrating Robot Policies: A Systematic Study of Hierarchical VLA Agents](https://arxiv.org/abs/2606.10267)**
+
+Systematically studies planner/controller selection, switching mechanisms, observations, and memory in hierarchical VLA systems, in simulation and on ALOHA.
+
+[Project](https://jiahenghu.github.io/hi-vla/)
+
+#### Harness VLA · 2026
+
+**[Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents](https://arxiv.org/abs/2607.08448)**
+
+Exposes a frozen VLA as a retryable contact-rich skill and combines it with analytic primitives; execution memory guides grounding, staging, and recovery.
+
+[Project](https://harnessvla.github.io/) · [Repository](https://github.com/RLinf/RPent)
+
+#### RoboHarness · 2026
+
+**[RoboHarness: Memory-Driven Orchestration of Heterogeneous Robot Policies for Long-Horizon Planning](https://arxiv.org/abs/2607.18060)**
+
+Routes tasks among heterogeneous VLA, RL, and task-and-motion planning policies using execution memory; a Memory Bridge supports transitions between policies.
+
+[Project](https://www.robo-harness.com/)
+
+#### Pigey · 2026
+
+**[Addressing the Orchestration Gap in Generalist Robots via Physical Agency](https://arxiv.org/abs/2607.21725)**
+
+Orchestrates frozen VLAs and parameterized skills with goal decomposition, observation-based outcome verification, and failure recovery.
+
+[Project](https://lianegalanti.github.io/Pigey/) · [Repository](https://github.com/lianegalanti/Pigey)
+
+#### ETA / OpenETA · 2026
+
+**[ETA: A New Agentic Paradigm for Embodied Tasks](https://arxiv.org/abs/2608.03924)**
+
+Organizes execution as a planner choosing one tool call, an interface executing it, and a world returning results and fresh observations; retains reusable experience.
+
+[Project](https://openmoss.ai/OpenETA/) · [Repository](https://github.com/OpenMOSS/OpenETA)
+
+#### Thea · 2026
+
+**[Towards the Harness of Embodied Agents](https://arxiv.org/abs/2608.11246)**
+
+Wraps robot capabilities as callable tools, maintains symbolic scene context, and checks action termination, success, and failure causes.
+
+[Project](https://eit-hai.github.io/thea/) · [Repository](https://github.com/EIT-HAI/Thea)
+
+#### Show-Harness · 2026
+
+**[Show-Harness: Just a VLM Agent Can Play Robots](https://arxiv.org/abs/2609.10522)**
+
+Provides discrete semantic action units grounded by embodiment-specific interpreters; studies both direct frontier-VLM control and fine-tuned smaller VLMs.
+
+[Project](https://showlab.github.io/Show-Harness/) · [Repository](https://github.com/showlab/Show-Harness)
+
+### Execution monitoring and failure recovery
+
+#### REFLECT · 2023
+
+**[REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction](https://arxiv.org/abs/2306.15724)**
+
+Summarizes multisensory execution histories for LLM-based failure explanation and correction planning, and introduces the RoboFail dataset.
+
+[Project](https://robot-reflect.github.io/) · [Repository](https://github.com/real-stanford/reflect)
+
+#### Code-as-Monitor · 2024
+
+**[Code-as-Monitor: Constraint-aware Visual Programming for Reactive and Proactive Robotic Failure Detection](https://arxiv.org/abs/2412.04455)**
+
+Uses VLM-generated monitoring code to evaluate spatiotemporal constraints for reactive failure detection and proactive prevention.
+
+[Project](https://zhoues.github.io/Code-as-Monitor/)
+
+### Skill discovery and agent-driven improvement
+
+#### ENPIRE · 2026
+
+**[ENPIRE: Agentic Robot Policy Self-Improvement in the Real World](https://arxiv.org/abs/2606.19980)**
+
+Automates real-robot reset, rollout, verification, and policy refinement through a coding-agent loop; includes training and algorithm changes rather than only inference-time prompting.
+
+[Project](https://research.nvidia.com/labs/gear/enpire/) · [Repository](https://github.com/NVlabs/ENPIRE)
+
+#### ASPIRE · 2026
+
+**[ASPIRE: Agentic /Skills Discovery for Robotics](https://arxiv.org/abs/2607.00272)**
+
+Writes, diagnoses, repairs, and validates robot control programs, accumulating reusable skills and exploring task/program variants through evolutionary search.
+
+[Project](https://research.nvidia.com/labs/gear/aspire/) · [Repository](https://github.com/NVlabs/ASPIRE)
+
+#### SHAPER · 2026
+
+**[Self-Evolving Embodied Agents via Skill-Harness Evolution](https://arxiv.org/abs/2608.11350)**
+
+Keeps model weights frozen while improving external skills and a context/code harness from target-environment rollouts; evaluated on VLABench and ESI-Bench.
+
+#### Zetta · 2026
+
+**[Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence](https://arxiv.org/abs/2608.16590)**
+
+Keeps the base policy frozen while evolving runtime critics and recovery skills through execution feedback and validation-gated updates.
+
+[Project](https://air-embodied-brain.github.io/zetta/) · [Repository](https://github.com/air-embodied-brain/Zetta-Embodiment)
+
+### Embodied-agent benchmarks
+
+#### EmbodiedBench · 2025
+
+**[EmbodiedBench: Comprehensive Benchmarking Multi-modal Large Language Models for Vision-Driven Embodied Agents](https://arxiv.org/abs/2502.09560)**
+
+Evaluates vision-driven multimodal agents across four simulated environments spanning high-level semantic tasks and low-level navigation/manipulation actions.
+
+[Project](https://embodiedbench.github.io/) · [Repository](https://github.com/EmbodiedBench/EmbodiedBench)
+
+#### CaP-X · 2026
+
+**[CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation](https://arxiv.org/abs/2603.22435)**
+
+Provides robot coding environments and benchmarks that vary action abstraction and feedback; studies training-free agentic execution and reinforcement-learning improvements.
+
+[Project](https://capgym.github.io/) · [Repository](https://github.com/capgym/cap-x)
+
+<a id="reference-collections"></a>
+
+## Reference collections
+
+These community-maintained collections also contain demos and articles; those entries should not be treated as peer-reviewed papers or independently reproduced results.
+
+- [zjwzcx/Awesome-Astra-Embodied-AI](https://github.com/zjwzcx/Awesome-Astra-Embodied-AI) — Public demonstrations grouped by robot-control and engineering workflows.
+- [kairunwen/Awesome-Robot-Use-Agent](https://github.com/kairunwen/Awesome-Robot-Use-Agent) — A collection of robot-use-agent papers, tools, benchmarks, and public demos.

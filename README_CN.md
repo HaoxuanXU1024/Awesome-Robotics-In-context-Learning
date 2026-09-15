@@ -4,7 +4,7 @@
 
 按类别整理机器人上下文学习（ICL）、上下文模仿学习（ICIL）及相关适应方法的公开论文。
 
-最后核对：**2026-09-15** · **28 篇论文**。年份采用 arXiv 首次提交年份，可能与会议年份不同；标题采用所链接的 arXiv 记录。各类别内按年份排序。本目录为精选阅读列表，不是穷尽性综述或性能排名。
+最后核对：**2026-09-15** · **48 篇论文**。年份采用 arXiv 首次提交年份，可能与会议年份不同；标题采用所链接的 arXiv 记录。各类别内按年份排序。本目录为精选阅读列表，不是穷尽性综述或性能排名。
 
 **范围说明。** 区分固定策略权重下的示范条件执行与基于梯度的适应。元训练发生在部署之前，并不意味着测试时更新参数。“测试时适应与长上下文记忆”单独收录更新权重的方法；通用强化学习及多模态基础工作作为相关文献收录，不视为机器人 ICIL 实验结果。分类依据主要接口，允许交叉：人类视频策略也可能采用 VLA。
 
@@ -18,6 +18,9 @@
 - [人类视频与跨形态上下文学习](#human-video)
 - [测试时适应与长上下文记忆](#adaptation-memory)
 - [多模态上下文学习基础](#multimodal-foundations)
+
+- [机器人 Agent 与 VLA 编排](#robotic-agents)
+- [参考资源](#reference-collections)
 
 <a id="llm-icl"></a>
 
@@ -258,3 +261,188 @@
 提出多模态上下文格式与 MIC 数据集，提升对多图提示及多模态上下文示例的理解。
 
 [仓库](https://github.com/PKUnlp-icler/MIC)
+
+<a id="robotic-agents"></a>
+
+## 机器人 Agent 与 VLA 编排
+
+收录执行规划、调用机器人工具或策略、监测执行及改进技能的智能体工作。Agent 调用 VLA 是其中一类，也包括调用解析动作基元或生成程序的控制方式。这些论文并非都属于基于示范的 ICL；简介中区分训练式改进与固定权重执行。下方两个参考资源库提供了检索线索，论文简介已依据原始来源核对。
+
+### 规划与具身控制
+
+另见[基于 LLM/VLM 的机器人上下文学习](#llm-icl)中的 **Code as Policies**。
+
+#### SayCan · 2022
+
+**[Do As I Can, Not As I Say: Grounding Language in Robotic Affordances](https://arxiv.org/abs/2204.01691)**
+
+结合语言模型判断的任务相关性与预训练技能价值函数，选择可执行的机器人技能以完成长时程指令。
+
+[项目](https://say-can.github.io/) · [仓库](https://github.com/google-research/google-research/tree/master/saycan)
+
+#### Inner Monologue · 2022
+
+**[Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608)**
+
+将成功检测、场景描述及人类反馈输入 LLM 规划器，形成闭环机器人任务执行。
+
+[项目](https://innermonologue.github.io/)
+
+#### VoxPoser · 2023
+
+**[VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models](https://arxiv.org/abs/2307.05973)**
+
+利用语言模型生成的代码和视觉定位构建三维价值图，再由基于模型的规划器生成机器人轨迹。
+
+[项目](https://voxposer.github.io/) · [仓库](https://github.com/huangwl18/VoxPoser)
+
+#### ReKep · 2024
+
+**[ReKep: Spatio-Temporal Reasoning of Relational Keypoint Constraints for Robotic Manipulation](https://arxiv.org/abs/2409.01652)**
+
+从指令和 RGB-D 观测生成三维关键点关系约束，再在感知—动作循环中优化末端运动。
+
+[项目](https://rekep-robot.github.io/) · [仓库](https://github.com/huangwl18/ReKep)
+
+### Agent 调用 VLA、策略编排与机器人工具接口
+
+#### Hi Robot · 2025
+
+**[Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://arxiv.org/abs/2502.19417)**
+
+由高层视觉语言模型理解开放指令及现场反馈，再由底层策略执行所选步骤。
+
+[项目](https://www.pi.website/research/hirobot)
+
+#### Hierarchical VLA agents · 2026
+
+**[What Matters in Orchestrating Robot Policies: A Systematic Study of Hierarchical VLA Agents](https://arxiv.org/abs/2606.10267)**
+
+在仿真及 ALOHA 机器人上系统研究分层 VLA 的规划器与控制器选择、切换机制、观测及记忆设计。
+
+[项目](https://jiahenghu.github.io/hi-vla/)
+
+#### Harness VLA · 2026
+
+**[Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents](https://arxiv.org/abs/2607.08448)**
+
+将冻结 VLA 封装为可重试的接触操作技能，与解析动作基元组合，并利用执行记忆指导定位、动作准备与恢复。
+
+[项目](https://harnessvla.github.io/) · [仓库](https://github.com/RLinf/RPent)
+
+#### RoboHarness · 2026
+
+**[RoboHarness: Memory-Driven Orchestration of Heterogeneous Robot Policies for Long-Horizon Planning](https://arxiv.org/abs/2607.18060)**
+
+利用执行记忆在 VLA、强化学习及任务运动规划等异构策略间分配任务，并通过 Memory Bridge 支持策略切换。
+
+[项目](https://www.robo-harness.com/)
+
+#### Pigey · 2026
+
+**[Addressing the Orchestration Gap in Generalist Robots via Physical Agency](https://arxiv.org/abs/2607.21725)**
+
+对冻结 VLA 与参数化技能进行编排，包括目标分解、基于观测的结果验证及失败恢复。
+
+[项目](https://lianegalanti.github.io/Pigey/) · [仓库](https://github.com/lianegalanti/Pigey)
+
+#### ETA / OpenETA · 2026
+
+**[ETA: A New Agentic Paradigm for Embodied Tasks](https://arxiv.org/abs/2608.03924)**
+
+将执行组织为规划器选择单次工具调用、接口执行、环境返回结果与新观测的循环，并保留可复用经验。
+
+[项目](https://openmoss.ai/OpenETA/) · [仓库](https://github.com/OpenMOSS/OpenETA)
+
+#### Thea · 2026
+
+**[Towards the Harness of Embodied Agents](https://arxiv.org/abs/2608.11246)**
+
+将机器人能力封装为可调用工具，维护符号化场景上下文，并检查动作终止、成功与失败原因。
+
+[项目](https://eit-hai.github.io/thea/) · [仓库](https://github.com/EIT-HAI/Thea)
+
+#### Show-Harness · 2026
+
+**[Show-Harness: Just a VLM Agent Can Play Robots](https://arxiv.org/abs/2609.10522)**
+
+提供由特定机器人解释器执行的离散语义动作单元，分别研究前沿 VLM 直接控制及较小 VLM 微调后的控制。
+
+[项目](https://showlab.github.io/Show-Harness/) · [仓库](https://github.com/showlab/Show-Harness)
+
+### 执行监测与失败恢复
+
+#### REFLECT · 2023
+
+**[REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction](https://arxiv.org/abs/2306.15724)**
+
+总结多传感器执行历史，供 LLM 解释失败并规划修正，同时提出 RoboFail 数据集。
+
+[项目](https://robot-reflect.github.io/) · [仓库](https://github.com/real-stanford/reflect)
+
+#### Code-as-Monitor · 2024
+
+**[Code-as-Monitor: Constraint-aware Visual Programming for Reactive and Proactive Robotic Failure Detection](https://arxiv.org/abs/2412.04455)**
+
+使用 VLM 生成的监测代码评估时空约束，用于事后失败检测及事前预防。
+
+[项目](https://zhoues.github.io/Code-as-Monitor/)
+
+### 技能发现与智能体驱动的自改进
+
+#### ENPIRE · 2026
+
+**[ENPIRE: Agentic Robot Policy Self-Improvement in the Real World](https://arxiv.org/abs/2606.19980)**
+
+通过编程智能体循环自动完成真实机器人复位、执行、验证与策略改进，包含训练及算法修改，不限于推理时提示。
+
+[项目](https://research.nvidia.com/labs/gear/enpire/) · [仓库](https://github.com/NVlabs/ENPIRE)
+
+#### ASPIRE · 2026
+
+**[ASPIRE: Agentic /Skills Discovery for Robotics](https://arxiv.org/abs/2607.00272)**
+
+编写、诊断、修复及验证机器人控制程序，积累可复用技能，并通过进化搜索探索任务与程序变体。
+
+[项目](https://research.nvidia.com/labs/gear/aspire/) · [仓库](https://github.com/NVlabs/ASPIRE)
+
+#### SHAPER · 2026
+
+**[Self-Evolving Embodied Agents via Skill-Harness Evolution](https://arxiv.org/abs/2608.11350)**
+
+保持模型权重冻结，通过目标环境执行轨迹改进外部技能与上下文/代码执行框架，在 VLABench 和 ESI-Bench 上评估。
+
+#### Zetta · 2026
+
+**[Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence](https://arxiv.org/abs/2608.16590)**
+
+冻结基础策略，通过执行反馈及验证后更新，迭代运行时评估程序与恢复技能。
+
+[项目](https://air-embodied-brain.github.io/zetta/) · [仓库](https://github.com/air-embodied-brain/Zetta-Embodiment)
+
+### 具身智能体评测
+
+#### EmbodiedBench · 2025
+
+**[EmbodiedBench: Comprehensive Benchmarking Multi-modal Large Language Models for Vision-Driven Embodied Agents](https://arxiv.org/abs/2502.09560)**
+
+在四种仿真环境中评估视觉驱动多模态智能体，覆盖高层语义任务及底层导航、操作动作。
+
+[项目](https://embodiedbench.github.io/) · [仓库](https://github.com/EmbodiedBench/EmbodiedBench)
+
+#### CaP-X · 2026
+
+**[CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation](https://arxiv.org/abs/2603.22435)**
+
+提供改变动作抽象层级与反馈条件的机器人编程环境及基准，研究免训练智能体执行和强化学习改进。
+
+[项目](https://capgym.github.io/) · [仓库](https://github.com/capgym/cap-x)
+
+<a id="reference-collections"></a>
+
+## 参考资源
+
+这些社区维护的合集也包含演示和文章，相应条目不应直接视为同行评审论文或独立复现结果。
+
+- [zjwzcx/Awesome-Astra-Embodied-AI](https://github.com/zjwzcx/Awesome-Astra-Embodied-AI) — 按机器人控制及工程工作流整理的公开演示合集。
+- [kairunwen/Awesome-Robot-Use-Agent](https://github.com/kairunwen/Awesome-Robot-Use-Agent) — 整理 robot-use agent 论文、工具、评测与公开演示的资源库。
